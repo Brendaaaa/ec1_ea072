@@ -1,20 +1,13 @@
+% FEEC/Unicamp
+% 31/05/2017
 % qmean2.m
-% Calcula as diferencas entre o esperado e o q obtivemos...
+% Gives a kind of root mean square (quadratic mean) for the elements of two matrices, taken together.
 %
-
- function [correct, sum] = qmean2(v1,v2) % ao descomentar essa, comenta a debaixo
-%function [sum] = qmean2(v1,v2)
-
-sum = 0;
-correct = 0;
-for i=1:size(v1) % para cada elemento do vetor
-    sum = sum + (v1(i) - v2(i))^2;
-end
-
-[M1, I1] = max(v1);
-[M2, I2] = max(v2);
-if (I1 == I2)
-    correct = 1;
-end
-
-sum = sum/size(v1,2);
+function [rms] = qmean2(w1,w2)
+[nr1,nc1] = size(w1);
+v1 = reshape(w1,nr1*nc1,1);
+[nr2,nc2] = size(w2);
+v2 = reshape(w2,nr2*nc2,1);
+v = [v1;v2];
+n_v = length(v);
+rms = sqrt(sum(v.*v)/n_v);
